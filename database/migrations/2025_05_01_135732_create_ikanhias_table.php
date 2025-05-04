@@ -1,0 +1,100 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('name'); // admin, seller, customer
+            $table->timestamps();
+        });
+
+        Schema::create('penggunas', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->string('email')->unique();
+            $table->timestamp('email_terverifikasi')->nullable();
+            $table->string('password');
+            $table->string('telepon')->nullable();
+            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+
+        Schema::create('koleksis', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->timestamps();
+        });
+
+        Schema::create('produks', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->text('deskripsi')->nullable();
+            $table->decimal('harga', 10, 2);
+            $table->integer('stok');
+            $table->string('gambar')->nullable();
+            $table->foreignId('pengguna_id')->constrained('penggunas')->onDelete('cascade');
+            $table->foreignId('koleksi_id')->nullable()->constrained('koleksis')->onDelete('set null');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('pesanans', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pengguna_id')->constrained('penggunas')->onDelete('cascade');
+            $table->decimal('total_harga', 10, 2);
+            $table->string('status')->default('menunggu'); 
+            $table->timestamps();
+        });
+
+        Schema::create('detail_pesanans', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pesanan_id')->constrained('pesanans')->onDelete('cascade');
+            $table->foreignId('produk_id')->constrained('produks')->onDelete('cascade');
+            $table->integer('jumlah');
+            $table->decimal('harga_satuan', 10, 2);
+            $table->decimal('subtotal', 10, 2);
+            $table->timestamps();
+        });
+
+        Schema::create('pembayarans', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pesanan_id')->constrained('pesanans')->onDelete('cascade');
+            $table->decimal('jumlah', 10, 2);
+            $table->string('metode'); 
+            $table->string('status')->default('belum dibayar'); 
+            $table->timestamps();
+        });
+
+        Schema::create('pengirimans', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pesanan_id')->constrained('pesanans')->onDelete('cascade');
+            $table->string('nama_penerima');
+            $table->string('alamat');
+            $table->string('kota');
+            $table->string('kode_pos');
+            $table->string('kurir');
+            $table->string('no_resi')->nullable();
+            $table->string('status')->default('belum dikirim'); 
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('pengirimans');
+        Schema::dropIfExists('pembayarans');
+        Schema::dropIfExists('detail_pesanans');
+        Schema::dropIfExists('pesanans');
+        Schema::dropIfExists('produks');
+        Schema::dropIfExists('koleksis');
+        Schema::dropIfExists('penggunas');
+        Schema::dropIfExists('roles');
+    }
+};
