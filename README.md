@@ -58,43 +58,118 @@ Framework Web Based<br/>2025</p>
 
 ---
 
+
 <h2>🗂 Struktur Tabel Database</h2>
 
 <h3>Tabel: roles</h3>
 <table>
-<thead>
-<tr><th>Nama Field</th><th>Tipe Data</th><th>Keterangan</th></tr>
-</thead>
+<thead><tr><th>Nama Field</th><th>Tipe Data</th><th>Keterangan</th></tr></thead>
 <tbody>
-<tr><td>id</td><td>bigint</td><td>Auto increment, primary key</td></tr>
-<tr><td>name</td><td>string</td><td>admin/seller/customer</td></tr>
-<tr><td>created_at</td><td>timestamp</td><td>Waktu dibuat</td></tr>
-<tr><td>updated_at</td><td>timestamp</td><td>Waktu diubah</td></tr>
-</tbody>
-</table>
+<tr><td>id</td><td>bigint</td><td>Primary key, auto increment</td></tr>
+<tr><td>name</td><td>string</td><td>Role pengguna (admin/seller/customer)</td></tr>
+<tr><td>created_at</td><td>timestamp</td><td>Waktu saat data dibuat</td></tr>
+<tr><td>updated_at</td><td>timestamp</td><td>Waktu saat data diubah</td></tr>
+</tbody></table><br/>
 
 <h3>Tabel: penggunas</h3>
 <table>
-<thead>
-<tr><th>Nama Field</th><th>Tipe Data</th><th>Keterangan</th></tr>
-</thead>
+<thead><tr><th>Nama Field</th><th>Tipe Data</th><th>Keterangan</th></tr></thead>
 <tbody>
-<tr><td>id</td><td>bigint</td><td>Auto increment</td></tr>
-<tr><td>nama</td><td>string</td><td>Nama pengguna</td></tr>
-<tr><td>email</td><td>string</td><td>Harus unik</td></tr>
-<tr><td>email_terverifikasi</td><td>timestamp</td><td>Boleh kosong</td></tr>
-<tr><td>password</td><td>string</td><td>Terenkripsi</td></tr>
-<tr><td>telepon</td><td>string</td><td>Boleh kosong</td></tr>
-<tr><td>role_id</td><td>foreignId</td><td>Relasi ke roles.id</td></tr>
-<tr><td>remember_token</td><td>string</td><td>Untuk fitur remember me</td></tr>
+<tr><td>id</td><td>bigint</td><td>Primary key, auto increment</td></tr>
+<tr><td>nama</td><td>string</td><td>Nama lengkap pengguna</td></tr>
+<tr><td>email</td><td>string</td><td>Email unik pengguna</td></tr>
+<tr><td>email_terverifikasi</td><td>timestamp</td><td>Boleh null, waktu verifikasi email</td></tr>
+<tr><td>password</td><td>string</td><td>Password terenkripsi</td></tr>
+<tr><td>telepon</td><td>string</td><td>Boleh null, nomor telepon pengguna</td></tr>
+<tr><td>role_id</td><td>foreignId</td><td>Relasi ke tabel roles</td></tr>
+<tr><td>remember_token</td><td>string</td><td>Token untuk remember me</td></tr>
+<tr><td>created_at</td><td>timestamp</td><td>Waktu saat data dibuat</td></tr>
+<tr><td>updated_at</td><td>timestamp</td><td>Waktu saat data diubah</td></tr>
+</tbody></table><br/>
+
+<h3>Tabel: koleksis</h3>
+<table>
+<thead><tr><th>Nama Field</th><th>Tipe Data</th><th>Keterangan</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>bigint</td><td>Primary key, auto increment</td></tr>
+<tr><td>nama</td><td>string</td><td>Nama koleksi produk</td></tr>
+<tr><td>created_at</td><td>timestamp</td><td>Waktu saat data dibuat</td></tr>
+<tr><td>updated_at</td><td>timestamp</td><td>Waktu saat data diubah</td></tr>
+</tbody></table><br/>
+
+<h3>Tabel: produks</h3>
+<table>
+<thead><tr><th>Nama Field</th><th>Tipe Data</th><th>Keterangan</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>bigint</td><td>Primary key, auto increment</td></tr>
+<tr><td>nama</td><td>string</td><td>Nama produk ikan hias</td></tr>
+<tr><td>deskripsi</td><td>text</td><td>Boleh null, deskripsi produk</td></tr>
+<tr><td>harga</td><td>decimal(10,2)</td><td>Harga produk</td></tr>
+<tr><td>stok</td><td>integer</td><td>Jumlah stok tersedia</td></tr>
+<tr><td>gambar</td><td>string</td><td>Path gambar produk, boleh null</td></tr>
+<tr><td>pengguna_id</td><td>foreignId</td><td>Relasi ke pengguna (penjual)</td></tr>
+<tr><td>koleksi_id</td><td>foreignId</td><td>Relasi opsional ke koleksis</td></tr>
+<tr><td>created_at</td><td>timestamp</td><td>Waktu saat data dibuat</td></tr>
+<tr><td>updated_at</td><td>timestamp</td><td>Waktu saat data diubah</td></tr>
+<tr><td>deleted_at</td><td>timestamp</td><td>Soft delete</td></tr>
+</tbody></table><br/>
+
+<h3>Tabel: pesanans</h3>
+<table>
+<thead><tr><th>Nama Field</th><th>Tipe Data</th><th>Keterangan</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>bigint</td><td>Primary key, auto increment</td></tr>
+<tr><td>pengguna_id</td><td>foreignId</td><td>Relasi ke customer</td></tr>
+<tr><td>total_harga</td><td>decimal(10,2)</td><td>Total semua item dalam pesanan</td></tr>
+<tr><td>status</td><td>string</td><td>Status pesanan (default: menunggu)</td></tr>
 <tr><td>created_at</td><td>timestamp</td><td>Waktu dibuat</td></tr>
 <tr><td>updated_at</td><td>timestamp</td><td>Waktu diubah</td></tr>
-</tbody>
-</table>
+</tbody></table><br/>
 
-_(Tambahkan tabel lainnya seperti produks, pesanans, dll jika perlu)_
+<h3>Tabel: detail_pesanans</h3>
+<table>
+<thead><tr><th>Nama Field</th><th>Tipe Data</th><th>Keterangan</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>bigint</td><td>Primary key, auto increment</td></tr>
+<tr><td>pesanan_id</td><td>foreignId</td><td>Relasi ke pesanan</td></tr>
+<tr><td>produk_id</td><td>foreignId</td><td>Relasi ke produk</td></tr>
+<tr><td>jumlah</td><td>integer</td><td>Jumlah item yang dibeli</td></tr>
+<tr><td>harga_satuan</td><td>decimal(10,2)</td><td>Harga per unit saat dibeli</td></tr>
+<tr><td>subtotal</td><td>decimal(10,2)</td><td>Total = harga_satuan * jumlah</td></tr>
+<tr><td>created_at</td><td>timestamp</td><td>Waktu dibuat</td></tr>
+<tr><td>updated_at</td><td>timestamp</td><td>Waktu diubah</td></tr>
+</tbody></table><br/>
 
----
+<h3>Tabel: pembayarans</h3>
+<table>
+<thead><tr><th>Nama Field</th><th>Tipe Data</th><th>Keterangan</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>bigint</td><td>Primary key, auto increment</td></tr>
+<tr><td>pesanan_id</td><td>foreignId</td><td>Relasi ke pesanan</td></tr>
+<tr><td>jumlah</td><td>decimal(10,2)</td><td>Jumlah dibayar</td></tr>
+<tr><td>metode</td><td>string</td><td>Metode pembayaran (COD, transfer, dll)</td></tr>
+<tr><td>status</td><td>string</td><td>Status pembayaran (default: belum dibayar)</td></tr>
+<tr><td>created_at</td><td>timestamp</td><td>Waktu dibuat</td></tr>
+<tr><td>updated_at</td><td>timestamp</td><td>Waktu diubah</td></tr>
+</tbody></table><br/>
+
+<h3>Tabel: pengirimans</h3>
+<table>
+<thead><tr><th>Nama Field</th><th>Tipe Data</th><th>Keterangan</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>bigint</td><td>Primary key, auto increment</td></tr>
+<tr><td>pesanan_id</td><td>foreignId</td><td>Relasi ke pesanan</td></tr>
+<tr><td>nama_penerima</td><td>string</td><td>Nama penerima paket</td></tr>
+<tr><td>alamat</td><td>string</td><td>Alamat lengkap</td></tr>
+<tr><td>kota</td><td>string</td><td>Kota tujuan</td></tr>
+<tr><td>kode_pos</td><td>string</td><td>Kode pos pengiriman</td></tr>
+<tr><td>kurir</td><td>string</td><td>Nama jasa kurir</td></tr>
+<tr><td>no_resi</td><td>string</td><td>Boleh null, nomor resi</td></tr>
+<tr><td>status</td><td>string</td><td>Status pengiriman (default: belum dikirim)</td></tr>
+<tr><td>created_at</td><td>timestamp</td><td>Waktu dibuat</td></tr>
+<tr><td>updated_at</td><td>timestamp</td><td>Waktu diubah</td></tr>
+</tbody></table>
+
 
 <h2>🔗 Jenis Relasi Antar Tabel</h2>
 
