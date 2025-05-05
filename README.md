@@ -2,7 +2,7 @@
 <br><br><br>
 
 <p align="center">
-  <img src="logo.png" width="250px" />
+  <img src="LOGO-USB.png" width="250px" />
 </p>
 
 <br><br><br>
