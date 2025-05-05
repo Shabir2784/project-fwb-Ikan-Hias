@@ -1,108 +1,115 @@
-# Toko Online Ikan Hias
+<h3 align="center">Toko Online Ikan Hias</h3>
+<br><br><br>
 
-**Nama:** Shabir  
-**NIM:** D0223306  
-**Mata Kuliah:** Framework Web Based  
-**Tahun:** 2025  
+<p align="center">
+  <img src="logo.png" width="250px" />
+</p>
 
----
+<br><br><br>
 
-## 🎯 Role dan Fitur
-
-### 1. Role: Admin  
-_Fokus: Mengelola sistem dan pengguna_
-
-| Fitur                        | Deskripsi                                               |
-|-----------------------------|----------------------------------------------------------|
-| Mengelola data pengguna     | CRUD data pengguna                                       |
-| Role dan Hak Akses          | Membuat, mengedit, menghapus role dan mengatur akses    |
-| Produk & Koleksi            | Kelola semua produk dan kategori                        |
-| Pesanan & Pembayaran        | Lihat semua pesanan & status                            |
-| Laporan                     | Laporan transaksi (opsional)                            |
-| Akses                       | Akses penuh ke semua fitur                              |
+<p align="center"><strong>Shabir</strong><br/>
+D0223306<br/><br/>
+Framework Web Based<br/>2025</p>
 
 ---
 
-### 2. Role: Seller (Penjual)  
-_Fokus: Mengelola produk dan pesanan_
+<h2>Role dan Fitur</h2>
 
-| Fitur                         | Deskripsi                                          |
-|------------------------------|-----------------------------------------------------|
-| Kelola Produk                | CRUD produk milik sendiri                          |
-| Koleksi Produk               | Kelompokkan produk ke koleksi                     |
-| Pesanan Masuk                | Lihat pesanan produk sendiri                      |
-| Update Pengiriman            | Tandai sebagai dikirim                            |
-| Lihat Pembayaran             | Untuk pesanan produk miliknya                     |
-| Batas Akses                  | Tidak bisa kelola user atau role                  |
+<h3>1. Admin</h3>
+<ul>
+  <li><strong>Fokus:</strong> Mengelola sistem dan pengguna</li>
+  <li><strong>Fitur:</strong>
+    <ul>
+      <li>Mengelola data pengguna (CRUD user)</li>
+      <li>Mengelola role dan hak akses</li>
+      <li>Mengelola semua produk dan koleksi</li>
+      <li>Melihat semua pesanan dan status</li>
+      <li>Melihat laporan transaksi</li>
+    </ul>
+  </li>
+</ul>
 
----
+<h3>2. Seller (Penjual)</h3>
+<ul>
+  <li><strong>Fokus:</strong> Mengelola produk & pesanan sendiri</li>
+  <li><strong>Fitur:</strong>
+    <ul>
+      <li>CRUD produk milik sendiri</li>
+      <li>Mengelola koleksi produk</li>
+      <li>Melihat pesanan masuk terkait produknya</li>
+      <li>Update status pengiriman</li>
+      <li>Melihat pembayaran pesanan miliknya</li>
+    </ul>
+  </li>
+</ul>
 
-### 3. Role: Customer (Pembeli)  
-_Fokus: Belanja dan riwayat pesanan_
-
-| Fitur                        | Deskripsi                                        |
-|-----------------------------|---------------------------------------------------|
-| Lihat Produk                | Jelajahi daftar produk                            |
-| Checkout                    | Lakukan pemesanan                                 |
-| Riwayat Pesanan             | Lihat semua pesanan pribadi                       |
-| Pembayaran                  | Lakukan pembayaran                                |
-| Status Pengiriman           | Lacak pesanan yang dikirim                        |
-| Batas Akses                 | Tidak bisa menambah produk atau kelola sistem    |
-
----
-
-## 🗂 Struktur Tabel Database
-
-### Tabel: roles
-| Nama Field | Tipe Data | Keterangan |
-|------------|-----------|------------|
-| id | bigint | Auto increment, primary key |
-| name | string | admin/seller/customer |
-| created_at | timestamp | Waktu dibuat |
-| updated_at | timestamp | Waktu diubah |
-
-### Tabel: penggunas
-| Nama Field | Tipe Data | Keterangan |
-|------------|-----------|------------|
-| id | bigint | Auto increment, primary key |
-| nama | string | Nama pengguna |
-| email | string | Harus unik |
-| email_terverifikasi | timestamp | Boleh kosong |
-| password | string | Password terenkripsi |
-| telepon | string | Boleh kosong |
-| role_id | foreignId | Relasi ke roles.id |
-| remember_token | string | Token untuk remember me |
-| created_at | timestamp | Waktu dibuat |
-| updated_at | timestamp | Waktu diubah |
-
-### Tabel: produks
-| Nama Field | Tipe Data | Keterangan |
-|------------|-----------|------------|
-| id | bigint | Auto increment |
-| nama | string | Nama produk |
-| deskripsi | text | Boleh kosong |
-| harga | decimal(10,2) | Harga produk |
-| stok | integer | Jumlah stok |
-| gambar | string | Path gambar |
-| pengguna_id | foreignId | Relasi ke penggunas.id |
-| koleksi_id | foreignId | Boleh null, ke koleksis.id |
-| created_at | timestamp | Waktu dibuat |
-| updated_at | timestamp | Waktu diubah |
-| deleted_at | timestamp | Soft delete |
-
-_(Lanjutkan untuk tabel lainnya bila perlu)_
+<h3>3. Customer (Pembeli)</h3>
+<ul>
+  <li><strong>Fokus:</strong> Belanja dan melacak pesanan</li>
+  <li><strong>Fitur:</strong>
+    <ul>
+      <li>Melihat daftar produk</li>
+      <li>Checkout dan pembayaran</li>
+      <li>Melihat riwayat pesanan</li>
+      <li>Melacak status pengiriman</li>
+    </ul>
+  </li>
+</ul>
 
 ---
 
-## 🔗 Jenis Relasi Antar Tabel
+<h2>🗂 Struktur Tabel Database</h2>
 
-| Relasi Tabel | Jenis Relasi | Keterangan |
-|--------------|--------------|------------|
-| roles → penggunas | One to Many | Satu role dimiliki banyak pengguna |
-| penggunas → produks | One to Many | Seller bisa punya banyak produk |
-| penggunas → pesanans | One to Many | Customer bisa punya banyak pesanan |
-| koleksis → produks | One to Many | Satu koleksi bisa berisi banyak produk |
-| produks → detail_pesanans | One to Many | Satu produk bisa muncul di banyak item pesanan |
-| pesanans → detail_pesanans | One to Many | Satu pesanan memiliki banyak item |
-| pesanans → pembayarans | One to One | Satu pesanan hanya punya satu pembayaran |
-| pesanans → pengirimans | One to One | Satu pesanan hanya punya satu pengiriman |
+<h3>Tabel: roles</h3>
+<table>
+<thead>
+<tr><th>Nama Field</th><th>Tipe Data</th><th>Keterangan</th></tr>
+</thead>
+<tbody>
+<tr><td>id</td><td>bigint</td><td>Auto increment, primary key</td></tr>
+<tr><td>name</td><td>string</td><td>admin/seller/customer</td></tr>
+<tr><td>created_at</td><td>timestamp</td><td>Waktu dibuat</td></tr>
+<tr><td>updated_at</td><td>timestamp</td><td>Waktu diubah</td></tr>
+</tbody>
+</table>
+
+<h3>Tabel: penggunas</h3>
+<table>
+<thead>
+<tr><th>Nama Field</th><th>Tipe Data</th><th>Keterangan</th></tr>
+</thead>
+<tbody>
+<tr><td>id</td><td>bigint</td><td>Auto increment</td></tr>
+<tr><td>nama</td><td>string</td><td>Nama pengguna</td></tr>
+<tr><td>email</td><td>string</td><td>Harus unik</td></tr>
+<tr><td>email_terverifikasi</td><td>timestamp</td><td>Boleh kosong</td></tr>
+<tr><td>password</td><td>string</td><td>Terenkripsi</td></tr>
+<tr><td>telepon</td><td>string</td><td>Boleh kosong</td></tr>
+<tr><td>role_id</td><td>foreignId</td><td>Relasi ke roles.id</td></tr>
+<tr><td>remember_token</td><td>string</td><td>Untuk fitur remember me</td></tr>
+<tr><td>created_at</td><td>timestamp</td><td>Waktu dibuat</td></tr>
+<tr><td>updated_at</td><td>timestamp</td><td>Waktu diubah</td></tr>
+</tbody>
+</table>
+
+_(Tambahkan tabel lainnya seperti produks, pesanans, dll jika perlu)_
+
+---
+
+<h2>🔗 Jenis Relasi Antar Tabel</h2>
+
+<table>
+<thead>
+<tr><th>Relasi Tabel</th><th>Jenis Relasi</th><th>Keterangan</th></tr>
+</thead>
+<tbody>
+<tr><td>roles → penggunas</td><td>One to Many</td><td>Satu role dimiliki banyak user</td></tr>
+<tr><td>penggunas → produks</td><td>One to Many</td><td>Seller bisa punya banyak produk</td></tr>
+<tr><td>penggunas → pesanans</td><td>One to Many</td><td>Customer bisa punya banyak pesanan</td></tr>
+<tr><td>koleksis → produks</td><td>One to Many</td><td>Koleksi berisi banyak produk</td></tr>
+<tr><td>produks → detail_pesanans</td><td>One to Many</td><td>Produk muncul di banyak item pesanan</td></tr>
+<tr><td>pesanans → detail_pesanans</td><td>One to Many</td><td>Pesanan memiliki banyak item</td></tr>
+<tr><td>pesanans → pembayarans</td><td>One to One</td><td>Satu pembayaran per pesanan</td></tr>
+<tr><td>pesanans → pengirimans</td><td>One to One</td><td>Satu pengiriman per pesanan</td></tr>
+</tbody>
+</table>
