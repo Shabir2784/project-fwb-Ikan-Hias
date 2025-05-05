@@ -1,63 +1,108 @@
-coba update
+# Toko Online Ikan Hias
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+**Nama:** Shabir  
+**NIM:** D0223306  
+**Mata Kuliah:** Framework Web Based  
+**Tahun:** 2025  
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+## 🎯 Role dan Fitur
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. Role: Admin  
+_Fokus: Mengelola sistem dan pengguna_
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+| Fitur                        | Deskripsi                                               |
+|-----------------------------|----------------------------------------------------------|
+| Mengelola data pengguna     | CRUD data pengguna                                       |
+| Role dan Hak Akses          | Membuat, mengedit, menghapus role dan mengatur akses    |
+| Produk & Koleksi            | Kelola semua produk dan kategori                        |
+| Pesanan & Pembayaran        | Lihat semua pesanan & status                            |
+| Laporan                     | Laporan transaksi (opsional)                            |
+| Akses                       | Akses penuh ke semua fitur                              |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+### 2. Role: Seller (Penjual)  
+_Fokus: Mengelola produk dan pesanan_
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+| Fitur                         | Deskripsi                                          |
+|------------------------------|-----------------------------------------------------|
+| Kelola Produk                | CRUD produk milik sendiri                          |
+| Koleksi Produk               | Kelompokkan produk ke koleksi                     |
+| Pesanan Masuk                | Lihat pesanan produk sendiri                      |
+| Update Pengiriman            | Tandai sebagai dikirim                            |
+| Lihat Pembayaran             | Untuk pesanan produk miliknya                     |
+| Batas Akses                  | Tidak bisa kelola user atau role                  |
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Role: Customer (Pembeli)  
+_Fokus: Belanja dan riwayat pesanan_
 
-## Laravel Sponsors
+| Fitur                        | Deskripsi                                        |
+|-----------------------------|---------------------------------------------------|
+| Lihat Produk                | Jelajahi daftar produk                            |
+| Checkout                    | Lakukan pemesanan                                 |
+| Riwayat Pesanan             | Lihat semua pesanan pribadi                       |
+| Pembayaran                  | Lakukan pembayaran                                |
+| Status Pengiriman           | Lacak pesanan yang dikirim                        |
+| Batas Akses                 | Tidak bisa menambah produk atau kelola sistem    |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🗂 Struktur Tabel Database
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+### Tabel: roles
+| Nama Field | Tipe Data | Keterangan |
+|------------|-----------|------------|
+| id | bigint | Auto increment, primary key |
+| name | string | admin/seller/customer |
+| created_at | timestamp | Waktu dibuat |
+| updated_at | timestamp | Waktu diubah |
 
-## Contributing
+### Tabel: penggunas
+| Nama Field | Tipe Data | Keterangan |
+|------------|-----------|------------|
+| id | bigint | Auto increment, primary key |
+| nama | string | Nama pengguna |
+| email | string | Harus unik |
+| email_terverifikasi | timestamp | Boleh kosong |
+| password | string | Password terenkripsi |
+| telepon | string | Boleh kosong |
+| role_id | foreignId | Relasi ke roles.id |
+| remember_token | string | Token untuk remember me |
+| created_at | timestamp | Waktu dibuat |
+| updated_at | timestamp | Waktu diubah |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Tabel: produks
+| Nama Field | Tipe Data | Keterangan |
+|------------|-----------|------------|
+| id | bigint | Auto increment |
+| nama | string | Nama produk |
+| deskripsi | text | Boleh kosong |
+| harga | decimal(10,2) | Harga produk |
+| stok | integer | Jumlah stok |
+| gambar | string | Path gambar |
+| pengguna_id | foreignId | Relasi ke penggunas.id |
+| koleksi_id | foreignId | Boleh null, ke koleksis.id |
+| created_at | timestamp | Waktu dibuat |
+| updated_at | timestamp | Waktu diubah |
+| deleted_at | timestamp | Soft delete |
 
-## Code of Conduct
+_(Lanjutkan untuk tabel lainnya bila perlu)_
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🔗 Jenis Relasi Antar Tabel
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+| Relasi Tabel | Jenis Relasi | Keterangan |
+|--------------|--------------|------------|
+| roles → penggunas | One to Many | Satu role dimiliki banyak pengguna |
+| penggunas → produks | One to Many | Seller bisa punya banyak produk |
+| penggunas → pesanans | One to Many | Customer bisa punya banyak pesanan |
+| koleksis → produks | One to Many | Satu koleksi bisa berisi banyak produk |
+| produks → detail_pesanans | One to Many | Satu produk bisa muncul di banyak item pesanan |
+| pesanans → detail_pesanans | One to Many | Satu pesanan memiliki banyak item |
+| pesanans → pembayarans | One to One | Satu pesanan hanya punya satu pembayaran |
+| pesanans → pengirimans | One to One | Satu pesanan hanya punya satu pengiriman |
