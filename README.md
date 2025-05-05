@@ -9,7 +9,7 @@
 
 <p align="center"><strong>Shabir</strong><br/>
 D0223306<br/><br/>
-Framework Web Based<br/>2025</p>
+Framework Web Based<br/></p>
 
 ---
 
@@ -59,7 +59,7 @@ Framework Web Based<br/>2025</p>
 ---
 
 
-<h2>🗂 Struktur Tabel Database</h2>
+<h2>Struktur Tabel Database</h2>
 
 <h3>Tabel: roles</h3>
 <table>
