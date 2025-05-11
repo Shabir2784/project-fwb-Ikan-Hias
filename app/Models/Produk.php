@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -11,8 +10,7 @@ class Produk extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'nama', 'deskripsi', 'harga', 'stok', 'gambar',
-        'pengguna_id', 'koleksi_id'
+        'nama', 'deskripsi', 'harga', 'stok', 'gambar', 'pengguna_id', 'koleksi_id'
     ];
 
     public function pengguna()
@@ -30,5 +28,3 @@ class Produk extends Model
         return $this->hasMany(DetailPesanan::class);
     }
 }
-
-

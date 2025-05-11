@@ -8,20 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name'); // admin, seller, customer
-            $table->timestamps();
-        });
-
         Schema::create('penggunas', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('email')->unique();
-            $table->timestamp('email_terverifikasi')->nullable();
+            $table->timestamp('email_verified_at')->nullable(); // diperbaiki
             $table->string('password');
             $table->string('telepon')->nullable();
-            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
+            $table->enum('role', ['admin', 'penjual', 'pembeli'])->default('pembeli'); // enum langsung
             $table->rememberToken();
             $table->timestamps();
         });
@@ -49,8 +43,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pengguna_id')->constrained('penggunas')->onDelete('cascade');
             $table->decimal('total_harga', 10, 2);
-            $table->string('status')->default('menunggu'); 
+            $table->enum('status', ['menunggu', 'diproses', 'selesai'])->default('menunggu');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('detail_pesanans', function (Blueprint $table) {
@@ -67,8 +62,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pesanan_id')->constrained('pesanans')->onDelete('cascade');
             $table->decimal('jumlah', 10, 2);
-            $table->string('metode'); 
-            $table->string('status')->default('belum dibayar'); 
+            $table->string('metode');
+            $table->enum('status', ['belum dibayar', 'sudah dibayar'])->default('belum dibayar');
             $table->timestamps();
         });
 
@@ -81,7 +76,7 @@ return new class extends Migration
             $table->string('kode_pos');
             $table->string('kurir');
             $table->string('no_resi')->nullable();
-            $table->string('status')->default('belum dikirim'); 
+            $table->enum('status', ['belum dikirim', 'dikirim', 'diterima'])->default('belum dikirim');
             $table->timestamps();
         });
     }
@@ -95,6 +90,5 @@ return new class extends Migration
         Schema::dropIfExists('produks');
         Schema::dropIfExists('koleksis');
         Schema::dropIfExists('penggunas');
-        Schema::dropIfExists('roles');
     }
 };

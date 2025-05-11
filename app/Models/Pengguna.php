@@ -1,29 +1,19 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pengguna extends Authenticatable
 {
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'nama', 'email', 'password', 'telepon', 'role_id', 'email_terverifikasi',
+        'nama', 'email', 'password', 'telepon', 'role'
     ];
 
     protected $hidden = ['password', 'remember_token'];
-
-    protected $casts = [
-        'email_terverifikasi' => 'datetime',
-    ];
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
 
     public function produks()
     {
@@ -35,5 +25,3 @@ class Pengguna extends Authenticatable
         return $this->hasMany(Pesanan::class);
     }
 }
-
-

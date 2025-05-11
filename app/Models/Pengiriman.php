@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -10,8 +9,7 @@ class Pengiriman extends Model
     use HasFactory;
 
     protected $fillable = [
-        'pesanan_id', 'nama_penerima', 'alamat', 'kota', 'kode_pos',
-        'kurir', 'no_resi', 'status'
+        'pesanan_id', 'nama_penerima', 'alamat', 'kota', 'kode_pos', 'kurir', 'no_resi', 'status'
     ];
 
     public function pesanan()
@@ -19,4 +17,3 @@ class Pengiriman extends Model
         return $this->belongsTo(Pesanan::class);
     }
 }
-
