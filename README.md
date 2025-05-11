@@ -181,3 +181,50 @@ Framework Web Based<br/></p>
     <tr><td>updated_at</td><td>timestamp</td><td>Waktu diubah</td></tr>
   </tbody>
 </table><br/>
+<h3>🔗 Relasi Antar Tabel</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Relasi Tabel</th>
+      <th>Jenis Relasi</th>
+      <th>Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>penggunas → produks</td>
+      <td>One to Many</td>
+      <td>Penjual bisa memiliki banyak produk</td>
+    </tr>
+    <tr>
+      <td>penggunas → pesanans</td>
+      <td>One to Many</td>
+      <td>Customer bisa membuat banyak pesanan</td>
+    </tr>
+    <tr>
+      <td>koleksis → produks</td>
+      <td>One to Many</td>
+      <td>Satu koleksi bisa memiliki banyak produk</td>
+    </tr>
+    <tr>
+      <td>produks → detail_pesanans</td>
+      <td>One to Many</td>
+      <td>Satu produk bisa muncul di banyak item pesanan</td>
+    </tr>
+    <tr>
+      <td>pesanans → detail_pesanans</td>
+      <td>One to Many</td>
+      <td>Satu pesanan bisa memiliki banyak item</td>
+    </tr>
+    <tr>
+      <td>pesanans → pembayarans</td>
+      <td>One to One</td>
+      <td>Satu pesanan memiliki satu pembayaran</td>
+    </tr>
+    <tr>
+      <td>pesanans → pengirimans</td>
+      <td>One to One</td>
+      <td>Satu pesanan memiliki satu pengiriman</td>
+    </tr>
+  </tbody>
+</table>
